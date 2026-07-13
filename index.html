@@ -1179,8 +1179,9 @@
             sendWrite();
         });
 
-        function sendWriteEmail() {
+        function sendWriteEmail(write) {
             try {
+                document.getElementById('loveWrite').value = write;
                 document.getElementById('emailWriteForm').submit();
                 showToast('情书已发送到他的邮箱 💌', 3000);
             } catch(err) {
@@ -1192,8 +1193,9 @@
         }
 
         function sendWrite() {
+            var writeText = document.getElementById('loveWrite').textContent
             // 发送邮件
-            sendWriteEmail();
+            sendWriteEmail(writeText);
             // 发送完成心形飞溅
             setTimeout(function() {
                 var cx = window.innerWidth / 2;
