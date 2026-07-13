@@ -27,6 +27,12 @@
             align-items: flex-start;
             position: relative;
             color: #4a4a6a;
+
+<!--           所有都不可选中 对手机没用-->
+<!--            -webkit-user-select: none;-->
+<!--            -moz-user-select: none;-->
+<!--            -ms-user-select: none;-->
+<!--            user-select: none;-->
         }
 
         /* ====== 浮动背景装饰 ====== */
@@ -208,9 +214,9 @@
 
          .text {
             font-size: 16px;
-            text-align: center;
-            color: #9899b0;
-            margin-bottom: 30px;
+            text-align: left;
+            color: #4a4a6a;
+            margin-bottom: 10px;
             line-height: 1.7;
             position: relative;
             z-index: 1;
@@ -764,11 +770,28 @@
 
                 <h1 class="title">小宝</h1>
                 <p class="subtitle"> 这是一封情书</p>
-<!--                // TODO 完善情书-->
+
                 <div class="summary-box">
-                    <p class="text"> 我</p>
-                    <p class="text"> 爱</p>
-                    <p class="text"> 你</p>
+                    <p class="text"> 亲爱的，你好啊：</p>
+                    <p class="text">&emsp;&emsp;见信如晤。</p>
+                    <p class="text">&emsp;&emsp;当你看见这封信的时候就意味着我爱的人开始读我的情书了。</p>
+                    <p class="text">&emsp;&emsp;雨果说：“真爱的第一征兆在男孩上是胆怯，在女孩的身上是大胆。”我看见了你的大胆，你只隔着屏幕对我说一声：“我想你”
+                        我便失了方寸。
+                        踽踽独行在冰原上的我终于看到了满地的月光，你是心上人，是我恰巧接住的月亮。</p>
+                    <P class="text" >&emsp;&emsp;夏天的草木在地上摇曳了几个身姿，两只手在空中荡着荡着就牵在了一起。</P>
+                    <p class="text">&emsp;&emsp;“盛夏白瓷梅子汤，碎冰碰壁当啷响。”</p>
+
+                    <p class="text">&emsp;&emsp;盛夏的温度热烈的很，让我们熟的那么快。
+                        每天都有想一起做的事情和止不住的思念，一起看电影；一起看河水荡漾，山庙屹立；一起彻夜长谈，看天空慢慢变亮；一起看蓝天白云，晚霞夕阳；一起看星星月亮，月色皎洁。一次次的谈天说地，一次次的对视，熟的不止是关系，还有心。</p>
+
+                    <p class="text">&emsp;&emsp;亲爱的，喜欢会很长久，我会用心做好每一个细节，晚霞温柔，星辰浪漫，你独一无二，我很喜爱，我只有你一个，也只要你一个。</p>
+                    <p class="text">&emsp;&emsp;晚风缱绻，晚霞绚烂，朝朝暮暮，</p>
+                    <p class="text">&emsp;&emsp;风有信，花如期，岁岁年年不相离。</p>
+                    <p class="text">&emsp;&emsp;今天不止是念你，更想将你揉进怀里，想闻你衣角发丝的香，再贴着耳畔告诉你——我想你想得心口发烫，想立刻见到你，想用力拥抱你，你是我所有日子里最甜的糖。</p>
+                    <p class="text">&emsp;&emsp;我很幸运，你像礼物一样出现在我的生命里。我们的每一次经历，都在我心底种下了独属于你的印记，你是我永远也忘记不了的人儿。就让时光慢慢走，让它替我们写下答案 —— 我会一直在</p>
+                    <p class="text">&emsp;&emsp;亲爱的小宝，有你，是我此生最温柔的幸运～</p>
+                    <p class="text" style="text-align: right;"> 永远爱你的我</p>
+                    <p class="text" style="text-align: right;"> 2026年7月13日</p>
                 </div>
 
                 <p class="hint-text">纸短情长💕</p>
@@ -1049,7 +1072,7 @@
             document.getElementById('finalFood').textContent = selectedFood;
 
             document.getElementById('finalSubtitle').innerHTML =
-                dateDisplay + ' ' + selectedTime + ' 我们去吃' + selectedFood + '<br>带好胃口，我带好路线，准备出发~';  // TODO 文案还需要修改
+                dateDisplay + ' ' + selectedTime + ' 我们去吃' + selectedFood + '<br>带好胃口，我带好路线，准备出发~';
 
             showScreen('screen5');
 
@@ -1105,8 +1128,7 @@
 
           if (clickCount_scr5 === 5) {
             clickCount_scr5 = 0;
-<!--            TODO -->
-<!--            goToSurprise1();-->
+            goToSurprise1();
           }
         });
         // 跳转彩蛋页1
