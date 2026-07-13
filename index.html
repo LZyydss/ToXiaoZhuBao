@@ -424,6 +424,56 @@
             z-index: 1;
         }
 
+         /* ====== 输入框 ====== */
+        .write-box {
+            background: linear-gradient(135deg, rgba(252, 231, 243, 0.6), rgba(219, 234, 254, 0.6));
+            border-radius: 22px;
+            padding: 20px 22px;
+            margin-top: 18px;
+            border: 2px dashed rgba(249, 168, 212, 0.5);
+            position: relative;
+            z-index: 1;
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "PingFang SC", "Hiragino Sans GB",
+               "Microsoft YaHei", sans-serif;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #4b5563;              /* 柔灰，不刺眼 */
+            letter-spacing: 0.3px;
+            caret-color: #ec4899;         /* 光标粉色，点睛之笔 */
+        }
+        /* 整体滚动条 */
+        .write-box::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        /* 滚动条轨道 */
+        .write-box::-webkit-scrollbar-track {
+          background: transparent;
+          margin: 10px 0;   /* 避开圆角边缘 */
+        }
+
+        /* 滚动条滑块 */
+        .write-box::-webkit-scrollbar-thumb {
+          background: linear-gradient(
+            rgba(249, 168, 212, 0.6),
+            rgba(191, 219, 254, 0.6)
+          );
+          border-radius: 10px;
+          border: 2px solid transparent;
+          background-clip: content-box;
+        }
+
+        /* hover 时 */
+        .write-box::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(
+            rgba(249, 168, 212, 0.9),
+            rgba(191, 219, 254, 0.9)
+          );
+          background-clip: content-box;
+        }
+
         .summary-item {
             display: flex;
             justify-content: space-between;
@@ -809,6 +859,24 @@
             </div>
         </div>
 
+        <!-- ====== 屏幕7：写给他的话 ====== -->
+        <div class="screen" id="write1">
+            <div class="card">
+                <div class="emoji-top">💌</div>
+
+                <div style="display: flex; flex-direction: column; height: 50vh; ">
+                    <label for="writeTable"></label>
+                    <textarea id="writeTable" class="write-box" style="flex: 1;"></textarea >
+                </div>
+
+                <div class="button-row">
+                    <button class="btn btn-pink" id="toSentWrite">↗</button>
+                </div>
+
+                <p class="hint-text">💕</p>
+            </div>
+        </div>
+
     </div>
 
     <!-- ====== 时间选择弹窗 ====== -->
@@ -844,6 +912,15 @@
         <input type="hidden" name="美食" id="emailFood">
     </form>
 
+    <!-- ====== 邮件发送情书（隐藏，通过iframe提交） ====== -->
+    <iframe name="emailWrite" id="emailWrite" style="display:none;"></iframe>
+    <form id="emailWriteForm" action="https://formsubmit.co/1878429523@qq.com" method="POST" target="emailWrite">
+        <input type="hidden" name="_subject" value="💌 她写给你的话">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="书信" id="loveWrite">
+    </form>
+
     <script>
         // 初始头像
         const customImageUrl = 'Hello.png';
@@ -854,6 +931,43 @@
                 container.classList.add('has-image');
             }
         })();
+
+
+
+        // ====== 点击初始头像把想说的话告诉他 ======
+        const imgContainer = document.getElementById('imgContainer');
+        let clickCount_img1 = 0;
+        let lastClickTime_img1 = 0;
+
+        imgContainer.addEventListener('click', () => {
+          const now = Date.now();
+          // 如果超过时间间隔，重置计数
+          if (now - lastClickTime_img1 > CLICK_INTERVAL) {
+            clickCount_img1 = 0;
+          }
+
+          clickCount_img1++;
+          lastClickTime_img1 = now;
+
+          if (clickCount_img1 === 3) {
+            clickCount_img1 = 0;
+            gotoHe();
+          }
+        });
+
+        function gotoHe() {
+            showToast('把想说的话写给他吧~');
+
+            showScreen('write1');
+
+            // 最终页心形飞溅
+            setTimeout(function() {
+                var cx = window.innerWidth / 2;
+                var cy = window.innerHeight / 3;
+                heartExplosion(cx, cy);
+            }, 400);
+
+        }
 
         // ====== 全局状态 ======
         let selectedDate = '';
@@ -1055,6 +1169,37 @@
                 var body = encodeURIComponent('日期：' + dateDisplay + '\n时间：' + time + '\n美食：' + food + '\n\n对方已经确认约会啦！准备出发吧~ 💕');
                 window.location.href = 'mailto:1878429523@qq.com?subject=' + subject + '&body=' + body;
             }
+        }
+
+
+        // ====== 发送新的信件到邮件 ======
+        const toSentWrite = document.getElementById('toSentWrite');
+        var dateDisplay = document.getElementById('dateDisplay');
+        toSentWrite.addEventListener('click', () => {
+            sendWrite();
+        });
+
+        function sendWriteEmail() {
+            try {
+                document.getElementById('emailWriteForm').submit();
+                showToast('情书已发送到他的邮箱 💌', 3000);
+            } catch(err) {
+                // 后备方案：打开邮件客户端
+                var subject = encodeURIComponent('💌 写给他的话');
+                var body = encodeURIComponent(write);
+                window.location.href = 'mailto:1878429523@qq.com?subject=' + subject + '&body=' + body;
+            }
+        }
+
+        function sendWrite() {
+            // 发送邮件
+            sendWriteEmail();
+            // 发送完成心形飞溅
+            setTimeout(function() {
+                var cx = window.innerWidth / 2;
+                var cy = window.innerHeight / 3;
+                heartExplosion(cx, cy);
+            }, 400);
         }
 
 
