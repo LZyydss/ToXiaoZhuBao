@@ -1174,7 +1174,7 @@
 
         // ====== 发送新的信件到邮件 ======
         const toSentWrite = document.getElementById('toSentWrite');
-        var dateDisplay = document.getElementById('dateDisplay');
+<!--        var writeTable = document.getElementById('writeTable');-->
         toSentWrite.addEventListener('click', () => {
             sendWrite();
         });
@@ -1193,7 +1193,7 @@
         }
 
         function sendWrite() {
-            var writeText = document.getElementById('writeTable').textContent
+            var writeText = document.getElementById('writeTable').textContent;
             // 发送邮件
             sendWriteEmail(writeText);
             // 发送完成心形飞溅
